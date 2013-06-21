@@ -1,5 +1,7 @@
 package org.lightmare.web;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -38,8 +40,9 @@ public class WebServer implements Runnable {
 
 	    ServletContainer container = new ServletContainer();
 	    ServletHolder restHolder = new ServletHolder();
-	    restHolder.setInitParameter("javax.ws.rs.Application",
-		    RestConfig.class.getName());
+	    Map<String, String> inits = new HashMap<String, String>();
+	    inits.put("javax.ws.rs.Application", RestConfig.class.getName());
+	    restHolder.setInitParameters(inits);
 	    restHolder.setInitOrder(1);
 	    restHolder.setServlet(container);
 	    ctxRest.addServlet(restHolder, "/*");
@@ -54,7 +57,7 @@ public class WebServer implements Runnable {
 	    ctxManager.addServlet(managerHolder, "/*");
 
 	    ServletContextHandler ctxPerson = new ServletContextHandler(
-		    contexts, "/", ServletContextHandler.SESSIONS);
+		    contexts, "/persons", ServletContextHandler.SESSIONS);
 	    ctxPerson.addEventListener(new LoaderListener());
 
 	    PersonManager manager = new PersonManager();
