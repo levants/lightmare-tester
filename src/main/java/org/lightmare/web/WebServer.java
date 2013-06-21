@@ -9,9 +9,11 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.glassfish.jersey.servlet.ServletContainer;
 import org.lightmare.deploy.management.DeployManager;
 import org.lightmare.jetty.JettyServer;
 import org.lightmare.listeners.LoaderListener;
+import org.lightmare.rest.RestConfig;
 import org.lightmare.servlets.PersonManager;
 
 public class WebServer implements Runnable {
@@ -50,7 +52,18 @@ public class WebServer implements Runnable {
 	    personHolder.setServlet(manager);
 	    ctxPerson.addServlet(personHolder, "/*");
 
-	    contexts.setHandlers(new Handler[] { ctxManager, ctxPerson });
+	    ServletContextHandler ctxRest = new ServletContextHandler(contexts,
+		    "/rest", ServletContextHandler.SESSIONS);
+
+	    ServletContainer container = new ServletContainer();
+	    ServletHolder restHolder = new ServletHolder();
+	    restHolder.setInitParameter("javax.ws.rs.Application",
+		    RestConfig.class.getName());
+	    restHolder.setInitOrder(1);
+	    restHolder.setServlet(container);
+	    ctxRest.addServlet(restHolder, "/*");
+
+	    contexts.setHandlers(new Handler[] { ctxManager, ctxPerson, ctxRest });
 	    jettyServer.start();
 	    jettyServer.join();
 
