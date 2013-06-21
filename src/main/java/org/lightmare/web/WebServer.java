@@ -33,6 +33,17 @@ public class WebServer implements Runnable {
 	    ContextHandlerCollection contexts = new ContextHandlerCollection();
 	    jettyServer.setHandler(contexts);
 
+	    ServletContextHandler ctxRest = new ServletContextHandler(contexts,
+		    "/rest", ServletContextHandler.SESSIONS);
+
+	    ServletContainer container = new ServletContainer();
+	    ServletHolder restHolder = new ServletHolder();
+	    restHolder.setInitParameter("javax.ws.rs.Application",
+		    RestConfig.class.getName());
+	    restHolder.setInitOrder(1);
+	    restHolder.setServlet(container);
+	    ctxRest.addServlet(restHolder, "/*");
+
 	    ServletContextHandler ctxManager = new ServletContextHandler(
 		    contexts, "/DeployManager", ServletContextHandler.SESSIONS);
 
@@ -52,18 +63,7 @@ public class WebServer implements Runnable {
 	    personHolder.setServlet(manager);
 	    ctxPerson.addServlet(personHolder, "/*");
 
-	    ServletContextHandler ctxRest = new ServletContextHandler(contexts,
-		    "/rest", ServletContextHandler.SESSIONS);
-
-	    ServletContainer container = new ServletContainer();
-	    ServletHolder restHolder = new ServletHolder();
-	    restHolder.setInitParameter("javax.ws.rs.Application",
-		    RestConfig.class.getName());
-	    restHolder.setInitOrder(1);
-	    restHolder.setServlet(container);
-	    ctxRest.addServlet(restHolder, "/*");
-
-	    contexts.setHandlers(new Handler[] { ctxManager, ctxPerson, ctxRest });
+	    contexts.setHandlers(new Handler[] { ctxRest, ctxManager, ctxPerson });
 	    jettyServer.start();
 	    jettyServer.join();
 
