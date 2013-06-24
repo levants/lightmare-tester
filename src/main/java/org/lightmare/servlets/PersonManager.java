@@ -1,7 +1,9 @@
 package org.lightmare.servlets;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,6 +37,19 @@ public class PersonManager extends HttpServlet {
     protected void doGet(HttpServletRequest request,
 	    HttpServletResponse response) throws ServletException, IOException {
 
+	BufferedReader stream = request.getReader();
+	Enumeration<String> names = request.getParameterNames();
+	while (names.hasMoreElements()) {
+	    System.out.println(names.nextElement());
+	}
+	try {
+	    String line;
+	    while ((line = stream.readLine()) != null) {
+		System.out.println(line);
+	    }
+	} finally {
+	    stream.close();
+	}
 	Person person = PersonUtils.createPersonToAdd();
 	PersonBacking backing = new PersonBacking();
 	backing.addPerson(person);
