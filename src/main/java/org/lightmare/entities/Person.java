@@ -1,12 +1,12 @@
 package org.lightmare.entities;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.lightmare.annotations.UnitName;
+import org.lightmare.rest.utils.RestUtils;
+import org.lightmare.utils.RpcUtils;
 
 @Entity
 @Table(name = "PERSONS", schema = "PERSONS")
@@ -29,7 +31,12 @@ public class Person {
 	    @Parameter(name = "table_name", value = "ID_GENERATORS"),
 	    @Parameter(name = "segment_column_name", value = "TABLE_NAME"),
 	    @Parameter(name = "segment_value", value = "PERSONS"),
-	    @Parameter(name = "value_column_name", value = "KEY_VALUE") })
+	    @Parameter(name = "value_column_name", value = "KEY_VALUE")
+    // ,@Parameter(name = "increment_size", value = "20")
+    })
+    // @TableGenerator(name = "ge.gov.mia.lightmare.entities.Person", table =
+    // "ID_GENERATORS", pkColumnName = "TABLE_NAME", pkColumnValue = "PERSONS",
+    // valueColumnName = "KEY_VALUE", allocationSize = 20)
     @Column(name = "person_id", nullable = true)
     private Integer personId;
 
@@ -54,11 +61,11 @@ public class Person {
     @Column(name = "gender")
     private String gender;
 
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = Email.class, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = Email.class)
     @JoinColumn(name = "PERSON_ID", referencedColumnName = "PERSON_ID")
     private Set<Email> emails;
 
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = PhoneNumber.class, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = PhoneNumber.class)
     @JoinColumn(name = "PERSON_ID", referencedColumnName = "PERSON_ID")
     private Set<PhoneNumber> phoneNumbers;
 
@@ -142,4 +149,28 @@ public class Person {
 	this.totalSalary = totalSalary;
     }
 
+    public static Person valueOf(String json) {
+
+	Person person = null;
+	try {
+	    person = RestUtils.convert(json, Person.class);
+	} catch (IOException ex) {
+	    ex.printStackTrace();
+	}
+
+	return person;
+    }
+
+    @Override
+    public String toString() {
+
+	String value;
+	try {
+	    value = RpcUtils.write(this);
+	} catch (IOException ex) {
+	    ex.printStackTrace();
+	    value = super.toString();
+	}
+	return value;
+    }
 }

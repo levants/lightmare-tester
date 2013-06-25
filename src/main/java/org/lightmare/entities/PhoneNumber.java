@@ -1,5 +1,7 @@
 package org.lightmare.entities;
 
+import java.io.IOException;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,8 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
 import org.lightmare.annotations.UnitName;
+import org.lightmare.rest.utils.RestUtils;
+import org.lightmare.utils.RpcUtils;
 
 @Entity
 @Table(name = "PHONE_NUMBERS", schema = "PERSONS")
@@ -51,4 +55,28 @@ public class PhoneNumber {
 	this.phoneNumber = phoneNumber;
     }
 
+    public static PhoneNumber valueOf(String json) {
+
+	PhoneNumber phone = null;
+	try {
+	    phone = RestUtils.convert(json, PhoneNumber.class);
+	} catch (IOException ex) {
+	    ex.printStackTrace();
+	}
+
+	return phone;
+    }
+    
+    @Override
+    public String toString() {
+
+	String value;
+	try {
+	    value = RpcUtils.write(this);
+	} catch (IOException ex) {
+	    ex.printStackTrace();
+	    value = super.toString();
+	}
+	return value;
+    }
 }
