@@ -29,6 +29,8 @@ public class RestClient {
 
     private static final String REST_URL_LIST = "list";
 
+    private static final String QUERY_PERSON_ID = "personId";
+
     private static final String QUERY_LIST_LAST = "last";
 
     private static final String QUERY_LIST_FIRST = "first";
@@ -52,6 +54,28 @@ public class RestClient {
 	    Response response = invocation.invoke();
 	    System.out.println(response.getStatus());
 	} catch (IOException ex) {
+	    ex.printStackTrace();
+	}
+    }
+
+    public static void get() {
+
+	try {
+	    ClientConfig config = new ClientConfig();
+	    config.register(ObjectMapperProvider.class);
+	    config.register(JacksonFeature.class);
+	    Client client = ClientBuilder.newClient(config);
+	    WebTarget webTarget = client.target(REST_URL).queryParam(
+		    QUERY_PERSON_ID, 1);
+
+	    Invocation.Builder builder = webTarget
+		    .request(MediaType.APPLICATION_JSON_TYPE);
+	    Invocation invocation = builder.buildGet();
+	    Response response = invocation.invoke();
+	    Person person = response.readEntity(Person.class);
+	    System.out.println(response.getStatus());
+	    System.out.println(person);
+	} catch (Exception ex) {
 	    ex.printStackTrace();
 	}
     }
@@ -83,6 +107,7 @@ public class RestClient {
     public static void main(String[] args) {
 
 	RestClient.getList();
+	RestClient.get();
 	RestClient.put();
     }
 }
