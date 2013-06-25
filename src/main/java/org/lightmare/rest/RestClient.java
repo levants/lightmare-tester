@@ -35,8 +35,6 @@ public class RestClient {
 
     private static final String QUERY_LIST_FIRST = "first";
 
-    private static final String QUERY_PERSON = "person";
-
     public static void put() {
 
 	try {
@@ -45,8 +43,7 @@ public class RestClient {
 	    config.register(ObjectMapperProvider.class);
 	    config.register(JacksonFeature.class);
 	    Client client = ClientBuilder.newClient(config);
-	    WebTarget webTarget = client.target(REST_URL).queryParam(
-		    QUERY_PERSON, person);
+	    WebTarget webTarget = client.target(REST_URL);
 	    Invocation.Builder builder = webTarget
 		    .request(MediaType.APPLICATION_JSON_TYPE);
 	    Invocation invocation = builder.buildPut(Entity.entity(person,
