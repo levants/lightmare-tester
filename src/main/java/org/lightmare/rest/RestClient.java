@@ -1,6 +1,5 @@
 package org.lightmare.rest;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.ws.rs.client.Client;
@@ -50,7 +49,7 @@ public class RestClient {
 		    MediaType.APPLICATION_JSON_TYPE));
 	    Response response = invocation.invoke();
 	    System.out.println(response.getStatus());
-	} catch (IOException ex) {
+	} catch (Exception ex) {
 	    ex.printStackTrace();
 	}
     }
