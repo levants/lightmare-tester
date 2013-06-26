@@ -36,7 +36,7 @@
 		<hibernate.version>4.1.9.Final</hibernate.version>
 		<jta.version>3.8.0</jta.version>
 		<netty.version>3.6.2.Final</netty.version>
-		<jackson.version>2.0.6</jackson.version>
+		<jackson.version>2.2.0</jackson.version>
 		<jetty.version>7.4.5.v20110725</jetty.version>
 		<jersey.version>2.0</jersey.version>
 		<servlet.version>3.0.1</servlet.version>
@@ -203,6 +203,11 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-json-provider</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
 		<!-- end of jackson json serialization -->
 
 		<!-- jetty embeddable server -->
@@ -261,6 +266,24 @@
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-json-jackson</artifactId>
 			<version>${jersey.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.codehaus.jackson</groupId>
+					<artifactId>jackson-core-asl</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.jackson</groupId>
+					<artifactId>jackson-mapper-asl</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.jackson</groupId>
+					<artifactId>jackson-jaxrs</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.jackson</groupId>
+					<artifactId>jackson-xc</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>

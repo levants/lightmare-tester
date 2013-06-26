@@ -11,8 +11,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.client.ClientConfig;
-import org.glassfish.jersey.jackson.JacksonFeature;
 import org.lightmare.entities.Person;
+import org.lightmare.rest.providers.JacksonFXmlFeature;
 import org.lightmare.rest.providers.ObjectMapperProvider;
 import org.lightmare.utils.PersonUtils;
 
@@ -40,7 +40,7 @@ public class RestClient {
 	    Person person = PersonUtils.createPersonToAdd();
 	    ClientConfig config = new ClientConfig();
 	    config.register(ObjectMapperProvider.class);
-	    config.register(JacksonFeature.class);
+	    config.register(JacksonFXmlFeature.class);
 	    Client client = ClientBuilder.newClient(config);
 	    WebTarget webTarget = client.target(REST_URL);
 	    Invocation.Builder builder = webTarget
@@ -59,7 +59,7 @@ public class RestClient {
 	try {
 	    ClientConfig config = new ClientConfig();
 	    config.register(ObjectMapperProvider.class);
-	    config.register(JacksonFeature.class);
+	    config.register(JacksonFXmlFeature.class);
 	    Client client = ClientBuilder.newClient(config);
 	    WebTarget webTarget = client.target(REST_URL).queryParam(
 		    QUERY_PERSON_ID, 1);
@@ -81,7 +81,7 @@ public class RestClient {
 	try {
 	    ClientConfig config = new ClientConfig();
 	    config.register(ObjectMapperProvider.class);
-	    config.register(JacksonFeature.class);
+	    config.register(JacksonFXmlFeature.class);
 	    Client client = ClientBuilder.newClient(config);
 	    WebTarget webTarget = client.target(REST_URL).path(REST_URL_LIST)
 		    .queryParam(QUERY_LIST_LAST, "last")
