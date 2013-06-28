@@ -11,6 +11,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.client.ClientConfig;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.lightmare.entities.Person;
 import org.lightmare.rest.providers.JacksonFXmlFeature;
 import org.lightmare.rest.providers.ObjectMapperProvider;
@@ -22,7 +24,8 @@ import org.lightmare.utils.PersonUtils;
  * @author levan
  * 
  */
-public class RestClient {
+@Ignore
+public class RestClientTest {
 
     private static final String REST_URL = "http://localhost:8080/rest/lightmare/";
 
@@ -100,10 +103,11 @@ public class RestClient {
 	}
     }
 
-    public static void main(String[] args) {
+    @Test
+    public void test() {
 
-	RestClientTest.getList();
-	RestClientTest.get();
-	RestClientTest.put();
+	RestClient.getList();
+	RestClient.get();
+	RestClient.put();
     }
 }
