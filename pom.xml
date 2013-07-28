@@ -105,7 +105,7 @@
 		<dependency>
 			<groupId>com.github.levants</groupId>
 			<artifactId>lightmare</artifactId>
-			<version>0.0.62-SNAPSHOT</version>
+			<version>0.0.63-SNAPSHOT</version>
 		</dependency>
 
 		<!-- ejb -->
