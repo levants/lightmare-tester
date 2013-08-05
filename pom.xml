@@ -34,6 +34,10 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+		<!-- lightmare -->
+		<lightmare.version>0.0.66-SNAPSHOT</lightmare.version>
+		<!-- end of lightmare -->
+
 		<!-- java ee components versions -->
 		<ejb.version>3.2</ejb.version>
 		<jta.version>1.2</jta.version>
@@ -112,7 +116,7 @@
 		<dependency>
 			<groupId>com.github.levants</groupId>
 			<artifactId>lightmare</artifactId>
-			<version>0.0.65-SNAPSHOT</version>
+			<version>${lightmare.version}</version>
 		</dependency>
 
 		<!-- java ee -->
