@@ -6,7 +6,7 @@ import java.util.List;
 import org.lightmare.bean.LightMareBeanRemote;
 import org.lightmare.ejb.EjbConnector;
 import org.lightmare.entities.Person;
-import org.lightmare.utils.ObjectUtils;
+import org.lightmare.utils.CollectionUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -29,7 +29,7 @@ public class PersonBacking {
 		LightMareBeanRemote.class);
 	List<Person> persons = bean.getPersons("last", "first");
 	String personsJson;
-	if (ObjectUtils.available(persons)) {
+	if (CollectionUtils.available(persons)) {
 	    personsJson = MAPPER.writeValueAsString(persons);
 	} else {
 	    personsJson = "[]";
