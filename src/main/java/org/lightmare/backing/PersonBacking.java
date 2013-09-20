@@ -29,7 +29,7 @@ public class PersonBacking {
 		LightMareBeanRemote.class);
 	List<Person> persons = bean.getPersons("last", "first");
 	String personsJson;
-	if (CollectionUtils.available(persons)) {
+	if (CollectionUtils.valid(persons)) {
 	    personsJson = MAPPER.writeValueAsString(persons);
 	} else {
 	    personsJson = "[]";
