@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.servlet.annotation.WebServlet;
+
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -16,6 +18,7 @@ import org.lightmare.deploy.management.DeployManager;
 import org.lightmare.listeners.LoaderListener;
 import org.lightmare.rest.RestConfig;
 import org.lightmare.servlets.PersonManager;
+import org.lightmare.utils.CollectionUtils;
 
 public class WebServer implements Runnable {
 
@@ -46,8 +49,12 @@ public class WebServer implements Runnable {
 	    restHolder.setServlet(container);
 	    ctxRest.addServlet(restHolder, "/*");
 
+	    WebServlet webServlet = DeployManager.class
+		    .getAnnotation(WebServlet.class);
+	    String deployManagerName = CollectionUtils.getFirst(webServlet
+		    .value());
 	    ServletContextHandler ctxManager = new ServletContextHandler(
-		    contexts, "/DeployManager", ServletContextHandler.SESSIONS);
+		    contexts, deployManagerName, ServletContextHandler.SESSIONS);
 
 	    DeployManager deploy = new DeployManager();
 	    ServletHolder managerHolder = new ServletHolder();
