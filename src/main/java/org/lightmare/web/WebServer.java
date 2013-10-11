@@ -24,6 +24,8 @@ public class WebServer implements Runnable {
 
     private static final int HTTP_SERVER_PORT = 8080;
 
+    private static final String APPLICATION_PARAM_NAME = "javax.ws.rs.Application";
+
     private static final Logger LOG = Logger.getLogger(WebServer.class);
 
     private static final ExecutorService POOL = Executors
@@ -43,7 +45,7 @@ public class WebServer implements Runnable {
 	    ServletContainer container = new ServletContainer();
 	    ServletHolder restHolder = new ServletHolder();
 	    Map<String, String> inits = new HashMap<String, String>();
-	    inits.put("javax.ws.rs.Application", RestConfig.class.getName());
+	    inits.put(APPLICATION_PARAM_NAME, RestConfig.class.getName());
 	    restHolder.setInitParameters(inits);
 	    restHolder.setInitOrder(1);
 	    restHolder.setServlet(container);
