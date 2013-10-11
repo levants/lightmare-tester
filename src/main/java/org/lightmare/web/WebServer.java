@@ -13,7 +13,6 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.lightmare.deploy.management.DeployManager;
-import org.lightmare.jetty.JettyServer;
 import org.lightmare.listeners.LoaderListener;
 import org.lightmare.rest.RestConfig;
 import org.lightmare.servlets.PersonManager;
@@ -22,7 +21,7 @@ public class WebServer implements Runnable {
 
     private static final int HTTP_SERVER_PORT = 8080;
 
-    private static final Logger LOG = Logger.getLogger(JettyServer.class);
+    private static final Logger LOG = Logger.getLogger(WebServer.class);
 
     private static final ExecutorService POOL = Executors
 	    .newSingleThreadExecutor();
