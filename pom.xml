@@ -35,7 +35,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<!-- lightmare -->
-		<lightmare.version>0.0.83-SNAPSHOT</lightmare.version>
+		<lightmare.version>0.0.84-SNAPSHOT</lightmare.version>
 		<!-- end of lightmare -->
 
 		<!-- java ee components versions -->
