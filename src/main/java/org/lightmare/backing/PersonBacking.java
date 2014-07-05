@@ -6,7 +6,7 @@ import java.util.List;
 import org.lightmare.bean.LightMareBeanRemote;
 import org.lightmare.ejb.EjbConnector;
 import org.lightmare.entities.Person;
-import org.lightmare.utils.CollectionUtils;
+import org.lightmare.utils.collections.CollectionUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

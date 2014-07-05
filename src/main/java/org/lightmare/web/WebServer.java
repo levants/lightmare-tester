@@ -18,7 +18,7 @@ import org.lightmare.deploy.management.DeployManager;
 import org.lightmare.listeners.LoaderListener;
 import org.lightmare.rest.RestConfig;
 import org.lightmare.servlets.PersonManager;
-import org.lightmare.utils.CollectionUtils;
+import org.lightmare.utils.collections.CollectionUtils;
 
 public class WebServer implements Runnable {
 
