@@ -1,6 +1,7 @@
 package org.lightmare.entities;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -23,7 +24,9 @@ import org.lightmare.rest.providers.RestProvider;
 @Entity
 @Table(name = "PERSONS", schema = "PERSONS")
 @UnitName("testUnit")
-public class Person {
+public class Person implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private static final String STRATEGY = "org.lightmare.jpa.hibernate.id.enhanced.TableGeneratorExt";
 

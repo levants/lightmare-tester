@@ -24,11 +24,12 @@ public class PersonBacking {
 
     public String getPersons() throws IOException {
 
+	String personsJson;
+
 	EjbConnector connector = new EjbConnector();
 	LightMareBeanRemote bean = connector.connectToBean("LightMareBean",
 		LightMareBeanRemote.class);
 	List<Person> persons = bean.getPersons("last", "first");
-	String personsJson;
 	if (CollectionUtils.valid(persons)) {
 	    personsJson = MAPPER.writeValueAsString(persons);
 	} else {
