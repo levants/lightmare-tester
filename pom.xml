@@ -48,9 +48,9 @@
 
 		<hibernate.version>4.3.10.Final</hibernate.version>
 		<netty.version>4.0.23.Final</netty.version>
-		<jackson.version>2.4.2</jackson.version>
+		<jackson.version>2.6.0</jackson.version>
 		<jetty.version>9.2.1.v20140609</jetty.version>
-		<jersey.version>2.13</jersey.version>
+		<jersey.version>2.19</jersey.version>
 		<tomcat-jdbc.version>8.0.14</tomcat-jdbc.version>
 		<c3p0.version>0.9.5.1</c3p0.version>
 	</properties>
